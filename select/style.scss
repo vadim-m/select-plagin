@@ -4,6 +4,7 @@ $height: 48px;
 //FONTS
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+
 .body {
   font-family: 'Roboto', sans-serif;
 }
@@ -18,18 +19,40 @@ $height: 48px;
   width: 500px;
 }
 
+
+
 .select {
   width: 100%;
   position: relative;
+  z-index: 10;
+  max-height: $height;
 
   &.open { 
     .select__dropdown { 
-      display: block;
+      height: ($height * 3) + 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
 
     .select__input {
       border-bottom: none;
+      
     }
+
+    .select__backdrop {
+      display: block;
+    }
+  }
+
+  &__backdrop {     // невидимый блок на всё окно (posit:fixed), чтобы если менюшка открыта и мы кликаем
+    display: none;  // мимо менюшки, она бы закрыалась, вызвав метод close();
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: transparent;
+    z-index: -1;
   }
 
   &__input{
@@ -41,16 +64,15 @@ $height: 48px;
     justify-content: space-between;
     padding: 0 1rem;
     cursor: pointer;
+    z-index: 50;
   }
 
   &__dropdown {
-    display: none; 
-    position: absolute;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    height: 0;
+    transition: height 0.25s ease-out 0s;
     top: $height;
-    left: 0;
-    right: 0;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc; 
     max-height: 200px;
     overflow-y: auto; 
     box-shadow: 2px 3px 5px rgba(0,0,0,0.3);
@@ -65,11 +87,26 @@ $height: 48px;
   &__item {
     padding: 1rem;
     border-bottom: 1px solid  #ccc;
+    background-color: #fff;
+
+    &--selected {
+      background-color: rgb(248, 205, 149);
+    }
 
     &:hover {
       background-color: #eee;
       cursor: pointer;
       transition: 0.15s background-color ease-in ;
     }
+  }
+
+  .fa {
+    transition: transform 0.25s ease-out 0s;
+  }
+
+  // плавная трансформация стрелки на 180 градусов
+  .fa--rotate {
+    transform: rotate(180deg);
+    transition: transform 0.2s ease-out 0s;
   }
 }
