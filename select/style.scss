@@ -110,3 +110,26 @@ $height: 48px;
     transition: transform 0.2s ease-out 0s;
   }
 }
+
+// custom scrollbar
+
+.select__dropdown{
+
+  // width
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  // трек
+  &::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.21); 
+  border-radius: 3px;
+  }
+
+  // ползунок
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 3px;
+    height: 15px;
+  }
+}
